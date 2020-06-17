@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app:
+    container_name: nest_container
+    build: .
+    depends_on:
+      - db
+    command: yarn start:dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/app
+    networks:
+      - fifo-network
+
+  db:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: nest
+      POSTGRES_DB: nest
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    networks:
+      - fifo-network
+
+networks:
+  fifo-network:
+    driver: bridge
+
+volumes:
+  db:
+  app:
