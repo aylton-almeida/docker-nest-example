@@ -6,7 +6,6 @@ services:
     build: .
     depends_on:
       - db
-    command: yarn start:dev
     ports:
       - '3000:3000'
     volumes:
@@ -18,8 +17,8 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_PASSWORD: nest
-      POSTGRES_DB: nest
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: <PROJECT NAME>
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
